@@ -21,11 +21,26 @@ _COLS=$(tput cols)
 __UP="\033[1A"
 # ___UP='^[[A'
 
-echo -en $__UP
 # ANSI_RESET = u'\u001b[0m'
 # ANSI_CURSOR_UP = u'\u001b[A'
 
+up () {
+    echo -en "\033[$1A"
+}
+
+up 3
+
 LN_COUNT=0
+
+path=b742e5b734fe9091b99d6043ca57bba4-80cols-20rows-cw3px-ch6px/$_COLOR
+
+for filename in $path/*.txt; do
+    up $LN_COUNT
+    echo -ne $(cat $filename | sed  's/$/\\n/' | sed 's/ /\\a /g')
+    echo -e '\n'
+    LN_COUNT=22
+    sleep 0.02
+done
 
 #previous_line_count = 0
 
@@ -41,5 +56,3 @@ LN_COUNT=0
         #     if remaining_loops is not None:
         #         remaining_loops -= 1
         # stdout.write(ANSI_RESET)
-
-echo $_COLOR
