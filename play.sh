@@ -32,27 +32,22 @@ up 3
 
 LN_COUNT=0
 
-path=b742e5b734fe9091b99d6043ca57bba4-80cols-20rows-cw3px-ch6px/$_COLOR
+_SLEEP=0.015
 
-for filename in $path/*.txt; do
+_NXT_LN_COUNT=23
+
+_PATH=b742e5b734fe9091b99d6043ca57bba4-80cols-20rows-cw3px-ch6px/$_COLOR
+if [[ _LINES -ge 40 ]]; then
+    _PATH=b742e5b734fe9091b99d6043ca57bba4-80cols-40rows-cw3px-ch6px/$_COLOR
+    _SLEEP=0.005
+    _NXT_LN_COUNT=40
+fi
+
+for filename in $_PATH/*.txt; do
     up $LN_COUNT
+    echo -n ' '
     echo -ne $(cat $filename | sed  's/$/\\n/' | sed 's/ /\\a /g')
     echo -e '\n'
-    LN_COUNT=22
-    sleep 0.02
+    LN_COUNT=$_NXT_LN_COUNT
+    sleep $_SLEEP
 done
-
-#previous_line_count = 0
-
-        # while remaining_loops is None or remaining_loops > 0:
-        #     for txt_frame in txt_frames:
-        #         stdout.write(ANSI_CURSOR_UP * previous_line_count)
-        #         stdout.write(txt_frame)
-        #         stdout.write('\n')
-        #         stdout.flush()
-        #         previous_line_count = len(txt_frames[0].split('\n'))
-        #         time.sleep(seconds_per_frame)
-
-        #     if remaining_loops is not None:
-        #         remaining_loops -= 1
-        # stdout.write(ANSI_RESET)
