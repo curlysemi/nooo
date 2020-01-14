@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 
-_TERM=$(echo "${TERM,,}")
-# FIXME: COLORTERM may not be accepted by sshd
-_COLORTERM=$(echo "${COLORTERM,,}")
-
 _COLOR='nocolor'
-if [[ $_TERM = *"truecolor"* || $_TERM = *"_COLORTERM"* ]]; then
+if [[ "$TERM" = *"truecolor"* || "$COLORTERM" = *"truecolor"* ]]; then
   _COLOR='truecolor'
-elif [[ $_TERM = *"256"* || $_TERM = *"256"* ]]; then
+elif [[ "$TERM" = *"256"* || "$COLORTERM" = *"256"* ]]; then
   _COLOR='256fgbg'
 fi
 
